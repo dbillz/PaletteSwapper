@@ -25,7 +25,7 @@ public class Runtime {
 		String outputPath = sc.nextLine();
 		System.out.println("Input tolerance (NONE,VERYLOW,LOW,NORMAL,HIGH,EXTREME):");
 		String tolerance = sc.nextLine();
-		Tolerance t;
+		Tolerance t; 
 		switch(tolerance){
 			case("NONE"): t= Tolerance.ZERO; break;
 			case("VERYLOW"): t=Tolerance.VERY_LOW; break;
@@ -40,7 +40,8 @@ public class Runtime {
 		
 		ImageLoader il = new ImageLoader();
 		Palette p = new Palette(il.getColorsInImage(inputPath),size,t);
-		p.printColorList();
 		il.createPaletteImage(p, outputPath);
+		System.out.println(p.getPaletteString());
+		System.out.println("Thank you for running me!");
 	}
 }

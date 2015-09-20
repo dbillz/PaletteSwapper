@@ -58,6 +58,7 @@ public class Palette {
 	 * @param tolerance
 	 */
 	private Map<Color,Integer> simplifyPalette(Map<Color,Integer> colorCountMap,Tolerance tolerance){
+		
 		Map<Color,Integer> simplifiedMap = new HashMap<Color,Integer>();
 		
 		while(!colorCountMap.isEmpty()){
@@ -102,5 +103,21 @@ public class Palette {
 		for(Color c: colorList){
 			System.out.println(c.getRed()+ " "+c.getGreen()+" " + c.getBlue());
 		}
+	}
+	
+	public String getPaletteString(){
+		StringBuilder sb = new StringBuilder();
+		if(!colorList.isEmpty()){
+			for(Color c:colorList){
+				sb.append(c.getRed());
+				sb.append(" ");
+				sb.append(c.getGreen());
+				sb.append(" ");
+				sb.append(c.getBlue());
+				sb.append(",");
+			}
+		}
+		return sb.toString();
+		
 	}
 }
