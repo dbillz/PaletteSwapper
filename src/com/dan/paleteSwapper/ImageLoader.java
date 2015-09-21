@@ -19,31 +19,36 @@ public class ImageLoader {
 		
 		
 		Map<Color,Integer> colorMap = new HashMap<Color,Integer>();
-		try {
+		
 			Preconditions.checkNotNull(filename);
 			
-			BufferedImage image = ImageIO.read(new File(filename));
-			for (int y = 0; y < image.getHeight(); y++) {
-			    for (int x = 0; x < image.getWidth(); x++) {
-			    	Color c = new Color(image.getRGB(x, y));
-			    	if(colorMap.get(c)!=null){
-			    		int currentCount = colorMap.get(c);
-			    		colorMap.put(c,currentCount+1);
-			    	}
-			    	else{
-			    		colorMap.put(c, 1);
-			    	}
-			    }
+			try{
+				BufferedImage image = loadImage(filename);
+				for (int y = 0; y < image.getHeight(); y++) {
+				    for (int x = 0; x < image.getWidth(); x++) {
+				    	Color c = new Color(image.getRGB(x, y));
+				    	if(colorMap.get(c)!=null){
+				    		int currentCount = colorMap.get(c);
+				    		colorMap.put(c,currentCount+1);
+				    	}
+				    	else{
+				    		colorMap.put(c, 1);
+				    	}
+				    }
+				}
+			}catch(IOException e){
+			    System.err.println("Failed to open file " + filename);
+			}catch(IllegalArgumentException e){
+				throw new IllegalArgumentException("Filename passed to ImageLoader.getColorsInImage cannot be null");
 			}
-		} catch (IOException e) {
-			System.err.println("Could not open image " + filename);
-		}catch(IllegalArgumentException e){
-			if(filename==null)throw new IllegalArgumentException("Filename passed to ImageLoader.getColorsInImage cannot be null");
-		}
 		return colorMap;
 	}
 	
-	
+	public BufferedImage loadImage(String filename) throws IOException,IllegalArgumentException{
+		Preconditions.checkNotNull(filename);
+		BufferedImage image = ImageIO.read(new File(filename));
+		return image;		
+	}
 
 	
 	public void saveImage(BufferedImage inputImage, String filename){
