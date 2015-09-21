@@ -99,12 +99,6 @@ public class Palette {
 		return colorList;
 	}
 	
-	public void printColorList(){
-		for(Color c: colorList){
-			System.out.println(c.getRed()+ " "+c.getGreen()+" " + c.getBlue());
-		}
-	}
-	
 	public String getPaletteString(){
 		StringBuilder sb = new StringBuilder();
 		if(!colorList.isEmpty()){
