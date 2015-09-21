@@ -1,6 +1,7 @@
 package com.dan.paleteSwapper;
 
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -10,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import com.google.common.base.Preconditions;
 
 public class Palette {
 
@@ -51,6 +54,41 @@ public class Palette {
 			Color newColor = new Color(Integer.valueOf(rgbArray[0]),Integer.valueOf(rgbArray[1]),Integer.valueOf(rgbArray[2]));
 			colorList.add(newColor);
 		}
+	}
+	
+	
+	public List<Color> getColorList(){
+		return colorList;
+	}
+	
+	public String getPaletteString(){
+		StringBuilder sb = new StringBuilder();
+		if(!colorList.isEmpty()){
+			for(Color c:colorList){
+				sb.append(c.getRed());
+				sb.append(" ");
+				sb.append(c.getGreen());
+				sb.append(" ");
+				sb.append(c.getBlue());
+				sb.append(",");
+			}
+		}
+		return sb.toString();
+		
+	}
+	
+	
+	public BufferedImage getImageFromPalette(){		
+		int pixelSize = 32;
+		int width = pixelSize*colorList.size();
+		int height = pixelSize;
+		BufferedImage outputImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+		for(int i = 0; i < height; i++){
+			for(int j = 0; j < width; j++){
+				outputImage.setRGB(j, i, colorList.get((int) Math.floor(j/32)).getRGB());
+			}
+		}
+		return outputImage;
 	}
 	
 	/**
@@ -95,23 +133,4 @@ public class Palette {
 		return (Math.abs(c1.getRGB()-c2.getRGB()));
 	}
 	
-	public List<Color> getColorList(){
-		return colorList;
-	}
-	
-	public String getPaletteString(){
-		StringBuilder sb = new StringBuilder();
-		if(!colorList.isEmpty()){
-			for(Color c:colorList){
-				sb.append(c.getRed());
-				sb.append(" ");
-				sb.append(c.getGreen());
-				sb.append(" ");
-				sb.append(c.getBlue());
-				sb.append(",");
-			}
-		}
-		return sb.toString();
-		
-	}
 }

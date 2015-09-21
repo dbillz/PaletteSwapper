@@ -40,7 +40,7 @@ public class Runtime {
 		
 		ImageLoader il = new ImageLoader();
 		Palette p = new Palette(il.getColorsInImage(inputPath),size,t);
-		il.saveImage(il.getImageFromPalette(p),outputPath);
+		il.saveImage(p.getImageFromPalette(),outputPath);
 		System.out.println(p.getPaletteString());
 		System.out.println("Thank you for running me!");
 	}

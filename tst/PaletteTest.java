@@ -1,7 +1,10 @@
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.*;
+
 import com.dan.paleteSwapper.Palette;
 import com.dan.paleteSwapper.Tolerance;
 
@@ -78,6 +81,26 @@ public class PaletteTest {
 		String inputString = "0 0 0,255 255 255,128 128 128,";
 		Palette p = new Palette(inputString);
 		Assert.assertEquals(p.getPaletteString(),inputString);
+	}
+	
+	@Test
+	public void testGetImageFromPalette(){
+		
+		int pixelSize = 32;
+		int expectedWidth = 5*pixelSize;
+		int expectedHeight = 1*pixelSize;
+		Color expectedFirstColor = new Color(0,0,0);
+		Color expectedLastColor = new Color(4,4,4);
+		
+		String inputPalette = "0 0 0,1 1 1,2 2 2,3 3 3,4 4 4";
+		Palette p = new Palette(inputPalette);
+		BufferedImage createdImage = p.getImageFromPalette();
+		Assert.assertEquals(createdImage.getWidth(),expectedWidth);
+		Assert.assertEquals(createdImage.getHeight(),expectedHeight);
+		int firstColorRGB = createdImage.getRGB(0,0);
+		Assert.assertEquals(firstColorRGB,expectedFirstColor.getRGB());
+		int lastColorRGB = createdImage.getRGB(expectedWidth-1, expectedHeight-1);
+		Assert.assertEquals(lastColorRGB,expectedLastColor.getRGB());
 	}
 	
 }

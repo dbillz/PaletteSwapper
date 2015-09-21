@@ -44,21 +44,7 @@ public class ImageLoader {
 	}
 	
 	
-	public BufferedImage getImageFromPalette(Palette p){
-		Preconditions.checkNotNull(p);
-		
-		List<Color> colorList = p.getColorList();
-		int pixelSize = 32;
-		int width = pixelSize*colorList.size();
-		int height = pixelSize;
-		BufferedImage outputImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
-		for(int i = 0; i < height; i++){
-			for(int j = 0; j < width; j++){
-				outputImage.setRGB(j, i, colorList.get((int) Math.floor(j/32)).getRGB());
-			}
-		}
-		return outputImage;
-	}
+
 	
 	public void saveImage(BufferedImage inputImage, String filename){
 		Preconditions.checkNotNull(inputImage);
